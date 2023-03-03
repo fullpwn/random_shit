@@ -12,10 +12,9 @@
     <h2>Log</h2>
     <div class="log"></div>
 
-    <script type='module'>
-      // Include the latest version of WebTorrent
-      import WebTorrent from 'https://esm.sh/webtorrent'
+    <script src="https://cdn.jsdelivr.net/npm/webtorrent@latest/webtorrent.min.js"></script>
       
+    <script type='module'>
       const client = new WebTorrent()
 
       client.on('error', err => {
