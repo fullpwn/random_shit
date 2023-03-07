@@ -9,6 +9,9 @@ window.onload = function()
 {
     var container1 = document.getElementById("screen_container1");
     var container2 = document.getElementById("screen_container2");
+    
+    container1.style.borderColor = "blue";
+    container2.style.borderColor = "blue";
 
     var emulator1 = new V86Starter({
         wasm_path: "v86.wasm",
