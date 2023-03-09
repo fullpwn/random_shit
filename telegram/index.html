@@ -64,5 +64,7 @@
 <script>
 Telegram.WebApp.MainButton.setText("Welcome!")
 Telegram.WebApp.MainButton.show()
-const welcomeDone = setTimeout(Telegram.WebApp.MainButton.hide(), 3000);
+setTimeout(() => {
+  Telegram.WebApp.MainButton.hide();
+}, 3000);
 </script>
