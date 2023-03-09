@@ -1,5 +1,54 @@
+<style>
+<style type="text/css">
+    div {
+        font-family: -apple-system, BlinkMacSystemFont, sans-serif;;
+        color: #FFF;
+    }
+    #wrapper {
+        padding: 2px 15px;
+    }
+    #medium, #large {
+        color: #CCC;
+        display: none;
+        font-size: 13pt;
+    }
+    /* Adjustments for medium customHeight banner */
+    @media only screen and (min-height: 121px) {
+        #wrapper {
+            padding: 15px;
+        }
+        #medium {
+            padding-top: 10px;
+            display: block;
+        }
+    }
+    /* Adjustments for large customHeight banner */
+    @media only screen and (min-height: 161px) {
+        #wrapper {
+            padding: 18px;
+        }
+        #medium {
+            padding-top: 15px;
+        }
+        #large {
+            display: block;
+        }
+    }
+    /* Adjustments for devices with smaller widths */
+    @media only screen and (max-width: 363px and min-height: 121px) {
+        #wrapper {
+            padding: 2px 10px;
+        }
+    }
+    @media only screen and (max-width: 414px) {
+        div {
+            letter-spacing: -1px;
+        }
+    }
+</style>
+</style>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
-Telegram.WebApp.showAlert('Notices Service has ended.')
-Telegram.WebApp.close()
+Telegram.WebApp.showAlert('smack my ass')
+Telegram.WebApp.sendData('hey');
 </script>
