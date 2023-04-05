@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Audio Visualizer</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+
+        canvas {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <h1>Audio Visualizer</h1>
+    <canvas id="visualizer" width="800" height="200"></canvas>
+    <audio id="audio" src="https://archive.org/download/hits-different-midnights-taylor-swift/14%20Hits%20Different.mp3" preload="auto" controls></audio>
+    <script>
+        const audioElement = document.getElementById('audio');
+        const canvasElement = document.getElementById('visualizer');
+        const canvasContext = canvasElement.getContext('2d');
+
+        // Set up the canvas
+        const canvasWidth = canvasElement.width;
+        const canvasHeight = canvasElement.height;
+        canvasContext.fillStyle = 'rgb(0, 0, 0)';
+        canvasContext.fillRect(0, 0, canvasWidth, canvasHeight);
+
+        // Audio context and analyzer
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const source = audioContext.createMediaElementSource(audioElement);
+        const analyzer = audioContext.createAnalyser();
+        analyzer.fftSize = 256;
+        const bufferLength = analyzer.frequencyBinCount;
+        const dataArray = new Uint8Array(bufferLength);
+
+        source.connect(analyzer);
+        analyzer.connect(audioContext.destination);
+
+        // Visualize the audio
+        function visualize() {
+            canvasContext.clearRect(0, 0, canvasWidth, canvasHeight);
+
+            analyzer.getByteFrequencyData(dataArray);
+
+            const barWidth = canvasWidth / bufferLength;
+            let x = 0;
+
+            for (let i = 0; i < bufferLength; i++) {
+                const barHeight = dataArray[i] / 2;
+
+                const r = barHeight + (25 * (i / bufferLength));
+                const g = 250 * (i / bufferLength);
+                const b = 50;
+
+                canvasContext.fillStyle = `rgb(${r}, ${g}, ${b})`;
+                canvasContext.fillRect(x, canvasHeight - barHeight, barWidth, barHeight);
+
+                x += barWidth + 1;
+            }
+
+            requestAnimationFrame(visualize);
+        }
+
+        // Start visualizing when audio is playing
+        audioElement.addEventListener('play', () => {
+            visualize();
+        });
+    </script>
+</body>
+</html>
