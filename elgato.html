@@ -14,17 +14,27 @@
             right: 10px;
             z-index: 1;
         }
+        #mute-button {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            z-index: 1;
+        }
     </style>
 </head>
 <body>
     <video id="camera-feed" autoplay></video>
     <button id="fullscreen-button">Fullscreen</button>
+    <button id="mute-button">Unmute</button>
     <script>
         // Get the video element for the camera feed
         const cameraFeed = document.getElementById('camera-feed');
 
         // Get the fullscreen button element
         const fullscreenButton = document.getElementById('fullscreen-button');
+
+        // Get the mute button element
+        const muteButton = document.getElementById('mute-button');
 
         // Filter webcams by name
         function filterWebcams(devices) {
@@ -34,12 +44,31 @@
         // Request camera and microphone access
         navigator.mediaDevices.getUserMedia({ video: true, audio: true })
             .then((stream) => {
+                // Mute the audio track by default
+                const audioTrack = stream.getAudioTracks()[0];
+                audioTrack.enabled = false;
+
                 // Set the camera feed as the video source
                 cameraFeed.srcObject = stream;
 
                 // Add event listener to check for camera disconnection
                 cameraFeed.addEventListener('ended', () => {
                     console.log('Camera source disconnected');
+                });
+
+                // Add event listener to mute/unmute button
+                muteButton.addEventListener('click', () => {
+                    const tracks = stream.getAudioTracks();
+                    if (tracks.length > 0) {
+                        const track = tracks[0];
+                        if (track.enabled) {
+                            track.enabled = false;
+                            muteButton.textContent = 'Unmute';
+                        } else {
+                            track.enabled = true;
+                            muteButton.textContent = 'Mute';
+                        }
+                    }
                 });
             })
             .catch((error) => {
