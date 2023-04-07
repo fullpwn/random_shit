@@ -1,7 +1,8 @@
+
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Elgato Cam Link</title>
+    <title>Unknown</title>
     <style>
         body {
             margin: 0;
@@ -28,17 +29,22 @@
             margin-left: 10px;
             color: white;
             font-size: 18px;
-            font-family: Verdana, sans-serif;
+            font-family: system-ui, sans-serif;
         }
         #fullscreen-button, #mute-button {
             margin-right: 10px;
+border: none;
+border-radius: 5px;
+background-color: lightgrey;
+font-family: system-ui, sans-serif;
+
         }
     </style>
 </head>
 <body>
     <video id="camera-feed" autoplay></video>
     <div id="top-bar">
-        <div id="title">Elgato Cam Link</div>
+        <div id="title">Unknown</div>
         <div>
             <button id="fullscreen-button">Fullscreen</button>
             <button id="mute-button">Unmute</button>
@@ -105,6 +111,31 @@
                 cameraFeed.msRequestFullscreen();
             }
         });
+// Check if mediaDevices API is supported
+if (navigator.mediaDevices && navigator.mediaDevices.enumerateDevices) {
+  // Enumerate devices
+  navigator.mediaDevices.enumerateDevices()
+    .then(function(devices) {
+      let webcamFound = false;
+      devices.forEach(function(device) {
+        // Check if device is a video input (webcam)
+        if (!webcamFound && device.kind === 'videoinput') {
+          document.getElementById("title").innerHTML = device.label; // Display webcam name
+            document.title = device.label;
+          webcamFound = true; // Set flag to exit loop after first webcam is found
+        }
+      });
+      if (!webcamFound) {
+        console.error('No webcam found');
+      }
+    })
+    .catch(function(err) {
+      console.error('Error enumerating devices:', err);
+    });
+} else {
+  console.error('navigator.mediaDevices.enumerateDevices is not supported');
+}
+
     </script>
 </body>
 </html>
