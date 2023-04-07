@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Camera App</title>
+    <title>Cam Link Web</title>
     <style>
         #camera-feed {
             width: 100%;
@@ -26,8 +26,13 @@
         // Get the fullscreen button element
         const fullscreenButton = document.getElementById('fullscreen-button');
 
-        // Request camera access
-        navigator.mediaDevices.getUserMedia({ video: true })
+        // Filter webcams by name
+        function filterWebcams(devices) {
+            return devices.filter(device => device.kind === 'videoinput' && device.label.includes('Cam Link'));
+        }
+
+        // Request camera and microphone access
+        navigator.mediaDevices.getUserMedia({ video: true, audio: true })
             .then((stream) => {
                 // Set the camera feed as the video source
                 cameraFeed.srcObject = stream;
@@ -38,7 +43,7 @@
                 });
             })
             .catch((error) => {
-                console.error('Failed to access camera:', error);
+                console.error('Failed to access camera and/or microphone:', error);
             });
 
         // Toggle fullscreen mode when the fullscreen button is clicked
