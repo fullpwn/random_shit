@@ -47,15 +47,15 @@ $valueExists = Get-ItemProperty -Path $parentKeyPath -Name $valueName -ErrorActi
 # If the value exists, update it
 if ($valueExists) {
     Set-ItemProperty -Path $parentKeyPath -Name $valueName -Value $newValue
-    Write-Host "Updated registry value '$valueName' under '$parentKeyPath'"
+    Write-Host "Updated Key. Restarting.."
+    Restart-Computer
 }
 # If the value does not exist, create it
 else {
     New-ItemProperty -Path $parentKeyPath -Name $valueName -Value $newValue -PropertyType String
-    Write-Host "Added registry value '$valueName' under '$parentKeyPath'"
+    Write-Host "Added Key. Restarting.."
+    Restart-Computer
 }
-
-
 `;
 
 			// Create a new Blob object with the PowerShell script
