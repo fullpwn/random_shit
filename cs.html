@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>CoolStar Audio Name Updater</title>
+	<meta charset="UTF-8">
+</head>
+<body>
+	<label for="driver-key">Driver Key:</label>
+	<input type="text" id="driver-key" name="driver-key">
+	<br>
+	<label for="driver-name">Driver Name:</label>
+	<input type="text" id="driver-name" name="driver-name" value="Realtek(R) Audio">
+	<br>
+	<button onclick="createPowerShellScript()">Create PowerShell Script</button>
+
+	<script>
+		function createPowerShellScript() {
+			// Get the input values
+			const driverKey = document.getElementById("driver-key").value;
+			const driverName = document.getElementById("driver-name").value;
+
+			// Replace the placeholders with the input values
+			const searchString = "[drvkey]";
+			const newValue = driverName.replace(searchString, driverKey);
+
+			// Construct the PowerShell script
+			const script = `
+# Specify the search string
+$searchString = "${driverKey}"
+
+# Get all registry keys and values recursively
+$registryItems = Get-ChildItem -Path "HKLM:\\HKEY_LOCAL_MACHINE\\SYSTEM\\ControlSet001\\Enum\" -Recurse -ErrorAction SilentlyContinue | Get-ItemProperty -ErrorAction SilentlyContinue
+
+# Filter the items to only include values that match the search string
+$results = $registryItems | Where-Object { $_.PSObject.Properties.Value -like "*$searchString*" }
+
+# Display the results
+$location = $results | Select-Object -ExpandProperty 'PSPath' | ForEach-Object { $_ -replace 'Microsoft\\.PowerShell\\.Core\\\\Registry::', 'HKLM:\\' }
+
+$valueName = "FriendlyName"
+$newValue = "${newValue}"
+$parentKeyPath = $location
+
+# Check if the value exists in the registry
+$valueExists = Get-ItemProperty -Path $parentKeyPath -Name $valueName -ErrorAction SilentlyContinue
+
+# If the value exists, update it
+if ($valueExists) {
+    Set-ItemProperty -Path $parentKeyPath -Name $valueName -Value $newValue
+    Write-Host "Updated registry value '$valueName' under '$parentKeyPath'"
+}
+# If the value does not exist, create it
+else {
+    New-ItemProperty -Path $parentKeyPath -Name $valueName -Value $newValue -PropertyType String
+    Write-Host "Added registry value '$valueName' under '$parentKeyPath'"
+}
+
+
+`;
+
+			// Create a new Blob object with the PowerShell script
+			const blob = new Blob([script], {type: "text/plain"});
+
+			// Create a new download link with the Blob object
+			const url = URL.createObjectURL(blob);
+			const link = document.createElement("a");
+			link.href = url;
+			link.download = "cs-aud-name-upd.ps1";
+
+			// Append the download link to the document and click it
+			document.body.appendChild(link);
+			link.click();
+
+			// Remove the download link from the document
+			document.body.removeChild(link);
+		}
+	</script>
+</body>
+</html>
