@@ -11,7 +11,7 @@ navigator.usb
   .requestDevice({ filters })
   .then((usbDevice) => {
     document.getElementById('type').innerHTML = `${usbDevice.productName}`;
-    document.getElementById('type').innerHTML = `Serial: ${usbDevice.serialNumber}`;
+    document.getElementById('sn').innerHTML = `Serial: ${usbDevice.serialNumber}`;
     console.log(`${usbDevice.manufacturerName}`);
     console.log(`${usbDevice.deviceVersionMajor}`);
     console.log(`${usbDevice.deviceVersionMinor}`);
