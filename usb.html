@@ -1,9 +1,22 @@
+<h1>Apple USB Info</h1>
+<p id="type">
+
 <script>
-  // Get all connected USB devices the website has been granted access to.
-navigator.usb.getDevices().then(devices => {
-  devices.forEach(device => {
-    console.log(device.productName);      // "Arduino Micro"
-    console.log(device.manufacturerName); // "Arduino LLC"
+const filters = [
+  { vendorId: 0x05ac }
+];
+navigator.usb
+  .requestDevice({ filters })
+  .then((usbDevice) => {
+    document.getElementById('type').innerHTML = `${usbDevice.productName}`;
+    console.log(`${usbDevice.serialNumber}`);
+    console.log(`${usbDevice.manufacturerName}`);
+    console.log(`${usbDevice.deviceVersionMajor}`);
+    console.log(`${usbDevice.deviceVersionMinor}`);
+    console.log(`${usbDevice.deviceVersionSubminor}`);
+  })
+  .catch((e) => {
+    console.error(`There is no device. ${e}`);
   });
-})
+
 </script>
