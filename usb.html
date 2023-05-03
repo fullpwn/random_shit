@@ -1,7 +1,9 @@
 <h1>Apple USB Info</h1>
+<button onClick="run">Run</button>
 <p id="type">
 
 <script>
+  function run() {
 const filters = [
   { vendorId: 0x05ac }
 ];
@@ -18,5 +20,5 @@ navigator.usb
   .catch((e) => {
     console.error(`There is no device. ${e}`);
   });
-
+  }
 </script>
