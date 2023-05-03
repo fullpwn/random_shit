@@ -1,6 +1,6 @@
-<h1>Apple USB Info</h1>
+<h1 id="type">Apple USB Info</h1>
 <button onClick="run()">Run</button>
-<p id="type">
+<p id="sn">
 
 <script>
   function run() {
@@ -11,7 +11,7 @@ navigator.usb
   .requestDevice({ filters })
   .then((usbDevice) => {
     document.getElementById('type').innerHTML = `${usbDevice.productName}`;
-    console.log(`${usbDevice.serialNumber}`);
+    document.getElementById('type').innerHTML = `Serial: ${usbDevice.serialNumber}`;
     console.log(`${usbDevice.manufacturerName}`);
     console.log(`${usbDevice.deviceVersionMajor}`);
     console.log(`${usbDevice.deviceVersionMinor}`);
