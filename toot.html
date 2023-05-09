@@ -1,0 +1,28 @@
+<p>Instance <input id="instance" type="text"></p>
+<p>Token <input id="authtoken" type="password"></p>
+<p>Status <input id="content" type="text"></p>
+<button onclick="toot()">Toot!</button>
+<p id="estatus")></p>
+
+<script>
+function toot() {
+var instance = document.getElementById("instance").value
+var authtoken = document.getElementById("authtoken").value
+var content = document.getElementById("content").value
+fetch("https://" + instance + "/api/v1/statuses", {
+  body: "status=" + content,
+  headers: {
+    Authorization: "Bearer " + authtoken,
+    "Content-Type": "application/x-www-form-urlencoded"
+  },
+  method: "POST"
+}).then(response => {
+      if (response.status === 200) {
+  document.getElementById("estatus").innerHTML = "Sent!"
+} else {
+  document.getElementById("estatus").innerHTML = "Error! Token might be off."
+}
+    })
+
+}
+</script>
