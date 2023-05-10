@@ -2,6 +2,17 @@
 
     let searchParams = new URLSearchParams(window.location.search)
 searchParams.has('token') 
+searchParams.has('inst') 
 let token = searchParams.get('token')
-alert(token)
+let inst = searchParams.get('inst')
+fetch("https://" + inst + "/api/v1/accounts/verify_credentials", {
+  headers: {
+    Authorization: "Bearer " + token,
+    "Content-Type": "application/x-www-form-urlencoded"
+  },
+  method: "POST"
+}).then(response => response.json()).then(data => {
+    console.log(data)
+  })
+}
 </script>
