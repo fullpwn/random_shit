@@ -1,3 +1,4 @@
+<h3 id="greet"></h3>
 <script>
 
     let searchParams = new URLSearchParams(window.location.search)
@@ -10,8 +11,9 @@ fetch("https://" + inst + "/api/v1/accounts/verify_credentials", {
     Authorization: "Bearer " + token,
     "Content-Type": "application/x-www-form-urlencoded"
   },
-  method: "POST"
+  method: "GET"
 }).then(response => response.json()).then(data => {
     console.log(data)
+    document.getElementById("greet").innerHTML = "Welcome " + data.display_name + "!"
   })
 </script>
