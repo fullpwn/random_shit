@@ -1,0 +1,23 @@
+body {
+  margin: 0;
+  overflow: hidden;
+}
+
+audio {
+  display: inline-block;
+  width: 100%;
+  height: 40px;
+}
+
+canvas {
+  display: block;
+  width: 100%;
+}
+
+#container {
+  height: calc( 100vh - 40px );
+}
+
+#upload {
+  display: none;
+}
