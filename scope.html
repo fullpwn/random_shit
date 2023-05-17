@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Scope Visualizer</title>
+  <style>
+    #visualizer {
+      width: 100%;
+      height: 200px;
+      background-color: #000;
+    }
+  </style>
+</head>
+<body>
+  <audio id="audio" src="https://archive.org/download/reputation-cd/1%20Audio%20Track.mp3" controls></audio>
+  <div id="visualizer"></div>
+
+  <script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+      const audioElement = document.getElementById('audio');
+      const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      const audioSource = audioContext.createMediaElementSource(audioElement);
+      const analyser = audioContext.createAnalyser();
+      
+      audioSource.connect(analyser);
+      analyser.connect(audioContext.destination);
+      
+      const visualizer = document.getElementById('visualizer');
+      const canvas = document.createElement('canvas');
+      visualizer.appendChild(canvas);
+      const ctx = canvas.getContext('2d');
+      
+      analyser.fftSize = 256;
+      const bufferLength = analyser.frequencyBinCount;
+      const dataArray = new Uint8Array(bufferLength);
+      
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      canvas.width = visualizer.offsetWidth;
+      canvas.height = visualizer.offsetHeight;
+      
+      function draw() {
+        const drawVisual = requestAnimationFrame(draw);
+        
+        analyser.getByteFrequencyData(dataArray);
+        
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        const barWidth = (canvas.width / bufferLength) * 2.5;
+        let barHeight;
+        let x = 0;
+        
+        for (let i = 0; i < bufferLength; i++) {
+          barHeight = dataArray[i];
+          
+          ctx.fillStyle = 'rgb(' + (barHeight + 100) + ',50,50)';
+          ctx.fillRect(x, canvas.height - barHeight / 2, barWidth, barHeight / 2);
+          
+          x += barWidth + 1;
+        }
+      }
+      
+      draw();
+    });
+  </script>
+</body>
+</html>
