@@ -1,7 +1,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.9/dat.gui.min.js"></script>
 <div id="container"><canvas id="canvas"></canvas></div>
-<audio id="audio" controls crossorigin></audio>
-<input id="audioFileInput" type="file" accept="audio/*">
+<audio id="audio" crossorigin hidden></audio>
+
 <script>
   function map(x, min, max, targetMin, targetMax) {
     return (x - min) / (max - min) * (targetMax - targetMin) + targetMin;
@@ -249,8 +249,6 @@ function newArrayOfZeros(n) {
 <script>
 	const audioCtx = new AudioContext();
 const audioPlayer = document.getElementById('audio');
-const localAudioElement = document.getElementById('audioFileInput');
-localAudioElement.addEventListener('change', loadLocalFile);
 const canvas = document.getElementById('canvas'),
       ctx = canvas.getContext('2d'),
       container = document.getElementById('container');
@@ -278,17 +276,6 @@ const visualizerSettings = {
           localAudioElement.click();
         }
       };
-
-let gui = new dat.GUI();
-gui.add(loader, 'url').name('URL');
-gui.add(loader, 'load').name('Load');
-gui.add(loader, 'loadLocal').name('Load from local device');
-let settings = gui.addFolder('Visualization settings');
-settings.add(visualizerSettings, 'inputSize', 32, 32768, 1).name('Input size');
-settings.add(visualizerSettings, 'outputSize', 32, 32768, 1).name('Output size');
-settings.add(visualizerSettings, 'compensateDC').name('Compensate for DC offset');
-settings.add(visualizerSettings, 'polarity', ['up', 'down', 'both']).name('Polarity');
-settings.add(visualizerSettings, 'freeze').name('Freeze analyser');
 
 function resizeCanvas() {
   const scale = devicePixelRatio;
