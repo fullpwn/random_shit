@@ -1,0 +1,200 @@
+{
+	"menuItems": [
+		{
+			"id": "dashboard",
+			"label": "common.menu.dashboard",
+			"path": "dashboard",
+			"outletLink": null,
+			"featureTag": "page.dashboard",
+			"before": "",
+			"hide":false,
+			"routerLinkActiveOptions": {
+				"exact": true
+			},
+			"subitems": []
+		},
+		{
+			"id": "device",
+			"label": "common.menu.device.title",
+			"path": "device",
+			"outletLink": null,
+			"firstVisibleChildLink": null,
+			"featureTag": "category.device",
+			"hide":false,
+			"subitems": [
+				{
+					"id": "device-subcategory",
+					"label": "common.menu.device.sub1",
+					"path": null,
+					"outletLink": null,
+					"hide": false,
+					"routerLinkActiveOptions": {
+						"exact": true
+					},
+					"subitems": [
+						{
+							"id": "device-menu",
+							"label": "common.menu.device.sub5",
+							"path": null,
+							"outletLink": null,
+							"before":"page.dashboard",
+							"featureTag": "page.myDevice",
+							"hide":false,
+							"routerLinkActiveOptions": {
+								"exact": true
+							},
+							"subitems": []
+						},
+						{
+							"id": "system-updates",
+							"label": "common.menu.device.sub3",
+							"path": "system-updates",
+							"outletLink": null,
+							"before":"page.deviceSetting",
+							"featureTag": "page.systemUpdate",
+							"routerLinkActiveOptions": {
+								"exact": false
+							},
+
+							"subitems": []
+						},
+						{
+							"id": "menu-main-lnk-open-modern-preload",
+							"label": "modernPreload.title",
+							"path": "modern-preload",
+							"outletLink": null,
+							"featureTag": "page.modernPreload",
+							"onlineOnly": true,
+							"routerLinkActiveOptions": {
+								"exact": false
+							},
+							"subitems": []
+						},
+						{
+							"id": "smart-assist",
+							"label": "common.menu.device.sub4",
+							"featureTag": "page.smartAssist",
+							"before":"page.systemUpdate",
+							"outletLink": null,
+							"isFullPath":true,
+							"path": "/device/smart-assist",
+							"externallink": false,
+							"routerLinkActiveOptions": {
+								"exact": true
+							},
+							"subitems": []
+						}
+					]
+				},
+				{
+					"id": "device-settings",
+					"label": "common.menu.device.sub8",
+					"path": "device-settings",
+					"outletLink": null,
+					"hide": false,
+					"routerLinkActiveOptions": {
+						"exact": false
+					},
+					"subitems": [
+						{
+							"id": "device-settings",
+							"label": "common.menu.device.sub6",
+							"featureTag": "page.deviceSetting",
+							"before":"page.myDevice",
+							"path": null,
+							"routerLinkActiveOptions": {
+								"exact": false
+							},
+							"subitems": []
+						},
+						{
+							"id": "power",
+							"label": "device.deviceSettings.power.title",
+							"featureTag": "page.deviceSetting",
+							"before":"feature.deviceSetting",
+							"path": "power",
+							"outletLink": ["/device/device-settings",{ "outlets": { "tab": ["power"] } }],
+							"routerLinkActiveOptions": {
+								"exact": false
+							},
+							"subitems": []
+						},
+						{
+							"id": "audio",
+							"label": "device.deviceSettings.audio.title",
+							"featureTag": "page.deviceSetting",
+							"path": "audio",
+							"outletLink": ["/device/device-settings",{ "outlets": { "tab": ["audio"] } }],
+							"routerLinkActiveOptions": {
+								"exact": false
+							},
+							"subitems": []
+						},
+						{
+							"id": "display-camera",
+							"label": "device.deviceSettings.displayCamera.title",
+							"featureTag": "page.deviceSetting",
+							"path": "display-camera",
+							"outletLink": ["/device/device-settings",{ "outlets": { "tab": ["display-camera"] } }],
+							"routerLinkActiveOptions": {
+								"exact": false
+							},
+							"subitems": []
+						},
+						{
+							"id": "input-accessories",
+							"label": "device.deviceSettings.inputAccessories.title",
+							"featureTag": "page.deviceSetting",
+							"path": "input-accessories",
+							"outletLink": ["/device/device-settings",{ "outlets": { "tab": ["input-accessories"] } }],
+							"routerLinkActiveOptions": {
+								"exact": false
+							},
+							"subitems": []
+						}
+					]
+				}
+
+			]
+		},
+		{
+			"id": "wifi-security",
+			"label": "common.menu.security.sub3",
+			"path": "wifi-security",
+			"outletLink": null,
+			"before": "page.smartAssist",
+			"featureTag": "page.wifiSecurity",
+			"routerLinkActiveOptions": {
+				"exact": true
+			},
+			"subitems": [],
+			"pre": [
+				"assets/images/coronet-logo.svg"
+			]
+		},
+		{
+			"id": "hardware-scan",
+			"label": "hardwareScan.name",
+			"path": "hardware-scan",
+			"outletLink": null,
+			"before": "page.wifiSecurity",
+			"featureTag": "page.hardwareScan",
+			"routerLinkActiveOptions": {
+				"exact": true
+			},
+			"subitems": []
+		},
+		{
+			"id": "preference-settings",
+			"label": "settings.preferenceSettings",
+			"path": "preference-settings",
+			"outletLink": null,
+			"before": "page.hardwareScan",
+			"hide":false,
+			"routerLinkActiveOptions": {
+				"exact": true
+			},
+			"subitems": []
+		}
+	]
+}

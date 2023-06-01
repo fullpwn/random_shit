@@ -1,0 +1,82 @@
+{
+    "not": {
+      "or": [
+        {
+          "in": [
+            {"var":"Brand"},
+            ["think"]
+          ]
+        },
+        {
+          "in": [
+            {"var":"Region"},
+            [
+              "am",
+              "az",
+              "by",
+              "kz",
+              "kg",
+              "md",
+              "ru",
+              "tj",
+              "uz",
+              "ca",
+              "au",
+              "my",
+              "be",
+              "bg",
+              "cz",
+              "dk",
+              "de",
+              "ee",
+              "ie",
+              "gr",
+              "es",
+              "fr",
+              "hr",
+              "it",
+              "cy",
+              "lv",
+              "lt",
+              "lu",
+              "hu",
+              "mt",
+              "nl",
+              "at",
+              "pl",
+              "pt",
+              "ro",
+              "si",
+              "sk",
+              "fi",
+              "se",
+              "gb"
+            ]
+          ]
+        },
+        {
+          "in": [
+            {"var":"SubBrand"},
+            [
+              "thinkcentre"
+            ]
+          ]
+        },
+        {
+          "match": [
+            {"var":"Family"},
+            [  
+              "^qt",
+              "^lenovo qt",
+              "^qitian",
+              "^lenovo qitian",
+              "^kt",
+              "^lenovo kt",
+              "^kaitian",
+              "^lenovo kaitian"
+            ]
+          ]
+        }
+      ]
+    }
+  }
